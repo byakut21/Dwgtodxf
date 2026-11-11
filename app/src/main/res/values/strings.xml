@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">DWG ⇄ DXF</string>
+    <string name="subtitle">AutoCAD çizimlerini telefonda dönüştür</string>
+    <string name="dwg_to_dxf">DWG  →  DXF</string>
+    <string name="dxf_to_dwg">DXF  →  DWG</string>
+    <string name="dxf_to_dwg_note">DXF → DWG deneyseldir; çıktı AutoCAD 2000 formatındadır.</string>
+    <string name="hint">Bir dönüşüm seç, sonra dosyanı seç.</string>
+    <string name="converting">Dönüştürülüyor: %1$s</string>
+    <string name="done">Hazır: %1$s (%2$s)\nKaydet ya da paylaş.</string>
+    <string name="saved">Kaydedildi: %1$s</string>
+    <string name="save">Kaydet</string>
+    <string name="share">Paylaş</string>
+    <string name="footer">Reklamsız • İnternet gerektirmez • Dosyalar telefondan çıkmaz\nLibreDWG (GPLv3) kullanır</string>
+    <string name="err_generic">Bir hata oluştu.</string>
+    <string name="err_read">Dosya açılamadı.</string>
+    <string name="err_empty">Dosya boş.</string>
+    <string name="err_not_dwg">Bu bir DWG dosyası değil. DXF ise \"DXF → DWG\" seç.</string>
+    <string name="err_not_dxf">Bu bir DWG dosyası. \"DWG → DXF\" seç.</string>
+    <string name="err_write">Çıktı dosyası yazılamadı.</string>
+    <string name="err_convert">Dönüştürülemedi (kod %1$s). Dosya bozuk olabilir ya da bu sürüm desteklenmiyor.</string>
+    <string name="err_save">Kaydedilemedi.</string>
+    <string name="err_unknown_type">Dosya türü anlaşılamadı. Sadece .dwg ve .dxf desteklenir.</string>
+</resources>

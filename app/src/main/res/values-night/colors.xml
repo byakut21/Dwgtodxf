@@ -1,0 +1,7 @@
+<resources>
+    <color name="brand">#A8C8FF</color>
+    <color name="text_primary">#E3E2E6</color>
+    <color name="text_secondary">#A9ADB5</color>
+    <color name="error">#F2B8B5</color>
+    <color name="icon_bg">#1E5AA8</color>
+</resources>

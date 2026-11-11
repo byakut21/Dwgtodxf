@@ -1,0 +1,1 @@
+-keep class com.byakut.dwgtodxf.Converter { native <methods>; }

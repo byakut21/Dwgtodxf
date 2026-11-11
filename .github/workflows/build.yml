@@ -1,0 +1,71 @@
+name: APK derle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  LIBREDWG_TAG: "0.13.3"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: LibreDWG kaynağını indir
+        run: git clone --depth 1 --branch "$LIBREDWG_TAG" https://github.com/LibreDWG/libredwg.git app/libredwg
+
+      - name: Dönüştürücüyü bilgisayarda test et
+        run: |
+          sudo apt-get install -y -qq ninja-build >/dev/null
+          cmake -S tools/native-test -B /tmp/nt -G Ninja \
+            -DLIBREDWG_DIR=$PWD/app/libredwg -DCONV_DIR=$PWD/app/src/main/cpp >/dev/null
+          cmake --build /tmp/nt > /tmp/nt.log 2>&1 || (tail -50 /tmp/nt.log; exit 1)
+          T=app/libredwg/test/test-data
+          for v in r14 2000 2004 2007 2010 2013 2018; do
+            /tmp/nt/convtest dwg2dxf $T/example_$v.dwg /tmp/ex_$v.dxf 2>/dev/null | tail -1
+            test -s /tmp/ex_$v.dxf
+          done
+          /tmp/nt/convtest dxf2dwg /tmp/ex_2018.dxf /tmp/back.dwg 2>/dev/null | tail -1
+          head -c 6 /tmp/back.dwg | grep -q AC1015
+          echo "Tüm testler geçti"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: APK derle
+        run: ./gradlew --no-daemon :app:assembleRelease
+
+      - name: APK'yı adlandır
+        id: apk
+        run: |
+          NAME="DwgToDxf-v1.0.${GITHUB_RUN_NUMBER}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "$NAME"
+          ls -la "$NAME"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: ${{ steps.apk.outputs.name }}
+
+      - name: Releases sayfasına koy
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: DWG ⇄ DXF v1.0.${{ github.run_number }}
+          files: ${{ steps.apk.outputs.name }}
+          body: |
+            Telefona yüklemek için aşağıdaki **.apk** dosyasına dokun.
+            İlk kurulumda "Bilinmeyen kaynaklara izin ver" demen gerekebilir.

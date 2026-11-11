@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- sheet -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M36,30h28l10,10v38a2,2 0,0 1,-2 2h-36a2,2 0,0 1,-2 -2v-46a2,2 0,0 1,2 -2z" />
+    <path android:fillColor="#C9DAF2" android:pathData="M64,30v10h10z" />
+    <!-- double arrow -->
+    <path android:fillColor="#1E5AA8"
+        android:pathData="M42,50h20v-5l8,8 -8,8v-5h-20z" />
+    <path android:fillColor="#1E5AA8"
+        android:pathData="M66,64h-20v-5l-8,8 8,8v-5h20z" />
+</vector>
